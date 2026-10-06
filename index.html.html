@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Fakta atau Opini? — Website Pembelajaran</title>
+<style>
+:root{
+  --primary:#5b5bd6; --secondary:#7c3aed; --accent:#06b6d4;
+  --bg:#f6f7fb; --card:#fff; --text:#202338; --muted:#697085;
+  --success:#159957; --danger:#dc3545; --warning:#f59e0b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+header{background:linear-gradient(135deg,#4f46e5,#7c3aed 55%,#06b6d4);color:white;padding:70px 20px 80px;position:relative;overflow:hidden}
+header:before,header:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.09)}
+header:before{width:280px;height:280px;right:-70px;top:-100px}
+header:after{width:190px;height:190px;left:-80px;bottom:-100px}
+.hero{max-width:1050px;margin:auto;position:relative;z-index:1}
+.badge{display:inline-block;background:rgba(255,255,255,.17);padding:7px 14px;border-radius:999px;font-size:.9rem}
+h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.1;margin:18px 0 14px}
+.hero p{max-width:700px;font-size:1.12rem;opacity:.95}
+.btn{border:0;border-radius:12px;padding:12px 19px;font-weight:700;cursor:pointer;font-size:.98rem;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:#fff;color:#4f46e5}
+.btn-dark{background:#272a4a;color:white}
+.btn-outline{background:white;border:1px solid #dfe2ee;color:#343752}
+nav{position:relative;z-index:10;background:#fff;border-bottom:1px solid #e8eaf2;box-shadow:0 2px 12px rgba(20,20,50,.05)}
+.nav-inner{max-width:1050px;margin:auto;display:flex;gap:8px;overflow:auto;padding:10px 14px}
+nav a{color:#454962;text-decoration:none;padding:9px 13px;border-radius:9px;white-space:nowrap;font-weight:650}
+nav a:hover{background:#f0efff;color:var(--primary)}
+main{max-width:1050px;margin:auto;padding:28px 16px 55px}
+section{margin:0 0 50px;scroll-margin-top:80px}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:20px}
+h2{font-size:2rem;margin:0 0 5px}
+.subtitle{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{background:var(--card);border:1px solid #e7e9f1;border-radius:18px;padding:23px;box-shadow:0 8px 25px rgba(39,43,74,.05)}
+.card h3{margin-top:0}
+.fact{border-left:5px solid var(--success)}
+.opinion{border-left:5px solid var(--warning)}
+.icon{font-size:2rem}
+.compare{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 25px rgba(39,43,74,.05)}
+.compare th,.compare td{padding:14px;text-align:left;border-bottom:1px solid #eceef5;vertical-align:top}
+.compare th{background:#f0efff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step{background:#fff;padding:18px;border:1px solid #e7e9f1;border-radius:15px}
+.step b{display:block;color:var(--primary);font-size:1.1rem;margin-bottom:6px}
+.text-box{background:#fff;border:1px solid #e7e9f1;border-radius:18px;padding:25px;font-size:1.05rem}
+.highlight{background:#fff8df;padding:2px 5px;border-radius:5px}
+.statement{display:flex;align-items:flex-start;gap:14px;background:#fff;border:1px solid #e5e7ef;border-radius:16px;padding:18px;margin:12px 0}
+.statement input{margin-top:6px;accent-color:var(--primary);transform:scale(1.2)}
+.feedback{margin-top:10px;padding:11px 13px;border-radius:10px;display:none}
+.correct{background:#e7f7ee;color:#106b3c}
+.wrong{background:#fff0f0;color:#a51e2a}
+.quiz-card{background:linear-gradient(135deg,#fff,#f5f4ff);border:1px solid #deddf7}
+.option{display:block;margin:8px 0;padding:12px 14px;border:1px solid #dddfee;border-radius:10px;background:#fff;cursor:pointer}
+.option:hover{border-color:#7c73e6;background:#faf9ff}
+.option input{margin-right:8px}
+.result{display:none;text-align:center;padding:22px;border-radius:16px;background:#fff;border:1px solid #e3e5ee;margin-top:20px}
+.score{font-size:3rem;font-weight:800;color:var(--primary)}
+.progress-wrap{height:10px;background:#e8e9f2;border-radius:99px;overflow:hidden;margin:15px 0}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#5b5bd6,#06b6d4);transition:.4s}
+footer{text-align:center;color:#74798d;padding:25px 15px;border-top:1px solid #e5e7ee}
+@media(max-width:760px){
+  .grid,.steps{grid-template-columns:1fr}
+  header{padding-top:50px}
+  .section-title{display:block}
+  .compare{font-size:.9rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hero">
+    <span class="badge">📚 Media Pembelajaran Interaktif</span>
+    <h1>Membaca & Membedakan<br>Fakta dan Opini</h1>
+    <p>Pelajari cara menemukan informasi yang dapat dibuktikan dan membedakannya dari pendapat atau penilaian dalam sebuah teks.</p>
+    <a href="#materi"><button class="btn btn-primary">Mulai Belajar →</button></a>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#tujuan">Tujuan</a><a href="#materi">Materi</a><a href="#cara">Cara Membedakan</a>
+    <a href="#teks">Baca Teks</a><a href="#latihan">Latihan</a><a href="#kuis">Kuis</a>
+  </div>
+</nav>
+
+<main>
+<section id="tujuan">
+  <div class="section-title"><div><h2>🎯 Tujuan Pembelajaran</h2><p class="subtitle">Setelah belajar, kamu diharapkan mampu:</p></div></div>
+  <div class="grid">
+    <div class="card"><span class="icon">🔎</span><h3>Mengidentifikasi</h3><p>Menemukan pernyataan fakta dan opini dalam teks.</p></div>
+    <div class="card"><span class="icon">🧠</span><h3>Menganalisis</h3><p>Menjelaskan alasan suatu pernyataan termasuk fakta atau opini.</p></div>
+    <div class="card"><span class="icon">📖</span><h3>Membaca Kritis</h3><p>Memeriksa apakah sebuah informasi dapat dibuktikan atau hanya berupa pendapat.</p></div>
+    <div class="card"><span class="icon">✍️</span><h3>Menyimpulkan</h3><p>Mengelompokkan informasi dari teks berdasarkan jenisnya.</p></div>
+  </div>
+</section>
+
+<section id="materi">
+  <div class="section-title"><div><h2>📖 Materi Pembelajaran</h2><p class="subtitle">Kenali ciri-ciri fakta dan opini.</p></div></div>
+  <div class="grid">
+    <div class="card fact">
+      <h3>✅ Fakta</h3>
+      <p><b>Fakta</b> adalah informasi atau pernyataan yang benar-benar terjadi dan dapat dibuktikan kebenarannya.</p>
+      <p><b>Ciri-ciri:</b></p>
+      <ul><li>Dapat dibuktikan dengan data atau sumber yang jelas.</li><li>Berdasarkan kejadian nyata.</li><li>Biasanya memuat angka, waktu, tempat, atau nama.</li><li>Tidak bergantung pada perasaan seseorang.</li></ul>
+      <p><b>Contoh:</b> “Proklamasi Kemerdekaan Indonesia dibacakan pada 17 Agustus 1945.”</p>
+    </div>
+    <div class="card opinion">
+      <h3>💭 Opini</h3>
+      <p><b>Opini</b> adalah pendapat, penilaian, dugaan, atau pandangan seseorang terhadap suatu hal.</p>
+      <p><b>Ciri-ciri:</b></p>
+      <ul><li>Bersifat subjektif.</li><li>Belum tentu dapat dibuktikan benar atau salah.</li><li>Sering menggunakan kata: <i>menurut saya, sebaiknya, paling, sangat, mungkin, tampaknya</i>.</li><li>Dapat berbeda antara satu orang dan orang lain.</li></ul>
+      <p><b>Contoh:</b> “Menurut saya, membaca buku adalah kegiatan yang paling menyenangkan.”</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:28px">⚖️ Perbedaan Fakta dan Opini</h3>
+  <table class="compare">
+    <tr><th>Fakta</th><th>Opini</th></tr>
+    <tr><td>Dapat dibuktikan.</td><td>Berisi pendapat atau penilaian.</td></tr>
+    <tr><td>Berdasarkan kenyataan.</td><td>Bersifat subjektif.</td></tr>
+    <tr><td>Didukung data/sumber.</td><td>Dapat berbeda menurut orang.</td></tr>
+    <tr><td>Contoh: “Air mendidih pada sekitar 100°C pada tekanan 1 atm.”</td><td>Contoh: “Teh hangat adalah minuman yang paling nikmat.”</td></tr>
+  </table>
+</section>
+
+<section id="cara">
+  <div class="section-title"><div><h2>🧭 Cara Membedakannya</h2><p class="subtitle">Gunakan 4 langkah sederhana berikut.</p></div></div>
+  <div class="steps">
+    <div class="step"><b>1. Baca</b>Baca kalimat atau teks secara utuh.</div>
+    <div class="step"><b>2. Tanya</b>Apakah pernyataan ini bisa dibuktikan?</div>
+    <div class="step"><b>3. Cek</b>Cari data, sumber, waktu, tempat, atau bukti pendukung.</div>
+    <div class="step"><b>4. Tentukan</b>Jika dapat dibuktikan → fakta. Jika berupa pendapat/penilaian → opini.</div>
+  </div>
+</section>
+
+<section id="teks">
+  <div class="section-title"><div><h2>📚 Baca dan Analisis Teks</h2><p class="subtitle">Baca teks berikut dengan teliti.</p></div></div>
+  <div class="text-box">
+    <h3>Manfaat Membaca Buku</h3>
+    <p>Membaca merupakan salah satu kegiatan yang dapat dilakukan untuk memperoleh informasi. Buku dapat ditemukan di perpustakaan, toko buku, maupun dalam bentuk digital. Menurut laporan UNESCO, kemampuan membaca dan menulis merupakan bagian penting dari pendidikan.</p>
+    <p>Bagi sebagian orang, membaca buku merupakan kegiatan yang sangat menyenangkan. Buku cerita juga dianggap sebagai bacaan yang paling menarik karena dapat membawa pembaca membayangkan berbagai tokoh dan peristiwa.</p>
+    <p>Perpustakaan sekolah dapat menjadi tempat yang mendukung kebiasaan membaca. Karena itu, menyediakan koleksi buku yang beragam merupakan langkah yang baik untuk meningkatkan minat membaca siswa.</p>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>💡 Petunjuk Analisis</h3>
+    <p>Perhatikan kalimat yang menyampaikan informasi yang bisa diverifikasi dan kalimat yang mengandung penilaian seperti <span class="highlight">sangat menyenangkan</span>, <span class="highlight">paling menarik</span>, atau <span class="highlight">langkah yang baik</span>.</p>
+  </div>
+</section>
+
+<section id="latihan">
+  <div class="section-title"><div><h2>🎮 Latihan Interaktif</h2><p class="subtitle">Pilih Fakta atau Opini untuk setiap pernyataan.</p></div></div>
+  <div id="practice"></div>
+  <button class="btn btn-dark" onclick="checkPractice()">Periksa Jawaban</button>
+  <div id="practiceResult" class="result"></div>
+</section>
+
+<section id="kuis">
+  <div class="section-title"><div><h2>🏆 Kuis Akhir</h2><p class="subtitle">Uji pemahamanmu dengan 10 soal.</p></div></div>
+  <div class="card quiz-card">
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+    <div id="quiz"></div>
+    <button class="btn btn-dark" id="submitQuiz" onclick="finishQuiz()">Lihat Nilai</button>
+    <button class="btn btn-outline" onclick="resetQuiz()" style="margin-left:8px">Ulangi</button>
+    <div id="quizResult" class="result"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <b>Fakta atau Opini?</b><br>Media pembelajaran interaktif • Belajar membaca secara kritis
+</footer>
+
+<script>
+const practice = [
+  ["Indonesia memiliki dua musim utama, yaitu musim hujan dan musim kemarau.","Fakta"],
+  ["Menurut saya, musim hujan adalah musim yang paling menyenangkan.","Opini"],
+  ["Air membeku pada suhu 0°C dalam kondisi tekanan atmosfer standar.","Fakta"],
+  ["Film itu sangat bagus dan wajib ditonton semua orang.","Opini"],
+  ["Bumi mengelilingi Matahari.","Fakta"],
+  ["Sepertinya belajar pada pagi hari lebih nyaman.","Opini"]
+];
+
+const quiz = [
+  {q:"Pernyataan yang dapat dibuktikan kebenarannya disebut …", a:["Opini","Fakta","Dugaan","Komentar"], c:1},
+  {q:"“Menurut saya, membaca novel adalah kegiatan paling menyenangkan.” Pernyataan tersebut adalah …", a:["Fakta","Data","Opini","Berita"], c:2},
+  {q:"Manakah yang paling menunjukkan ciri fakta?", a:["Mengandung penilaian","Dapat diverifikasi","Menggunakan kata sangat","Berdasarkan selera"], c:1},
+  {q:"“Indonesia merdeka pada 17 Agustus 1945.” termasuk …", a:["Opini","Fakta","Saran","Perkiraan"], c:1},
+  {q:"Kata yang sering menjadi penanda opini adalah …", a:["Pada tahun","Menurut saya","Berjumlah","Berlokasi"], c:1},
+  {q:"“Kota itu memiliki 12 kecamatan.” Jika datanya dapat diverifikasi, kalimat tersebut termasuk …", a:["Fakta","Opini","Perasaan","Ajakan"], c:0},
+  {q:"“Makanan itu adalah makanan terenak di kota ini.” termasuk …", a:["Fakta","Opini","Data","Definisi"], c:1},
+  {q:"Langkah yang tepat setelah menemukan sebuah pernyataan adalah …", a:["Langsung mempercayainya","Memeriksa bukti atau sumber","Mengubah isinya","Mengabaikannya"], c:1},
+  {q:"Mengapa opini dapat berbeda antara satu orang dengan orang lain?", a:["Karena opini bersifat subjektif","Karena opini selalu berupa angka","Karena opini memiliki sumber resmi","Karena opini pasti benar"], c:0},
+  {q:"“Air mendidih sekitar 100°C pada tekanan 1 atm.” termasuk …", a:["Opini","Fakta","Saran","Pendapat"], c:1}
+];
+
+function renderPractice(){
+  const el=document.getElementById("practice");
+  el.innerHTML=practice.map((x,i)=>`
+    <div class="statement">
+      <div style="flex:1"><b>${i+1}.</b> ${x[0]}
+        <div class="feedback" id="pf${i}"></div>
+      </div>
+      <div>
+        <label><input type="radio" name="p${i}" value="Fakta"> Fakta</label><br>
+        <label><input type="radio" name="p${i}" value="Opini"> Opini</label>
+      </div>
+    </div>`).join("");
+}
+function checkPractice(){
+  let score=0;
+  practice.forEach((x,i)=>{
+    const chosen=document.querySelector(`input[name="p${i}"]:checked`);
+    const f=document.getElementById("pf"+i);
+    f.style.display="block";
+    if(chosen && chosen.value===x[1]){
+      score++; f.className="feedback correct"; f.textContent="✓ Benar! Ini adalah "+x[1]+".";
+    }else{
+      f.className="feedback wrong"; f.textContent="✗ Jawaban benar: "+x[1]+".";
+    }
+  });
+  const r=document.getElementById("practiceResult");
+  r.style.display="block";
+  r.innerHTML=`<b>Hasil latihan: ${score}/${practice.length}</b><br>${score===practice.length?"Sempurna! Kamu sudah memahami perbedaannya.":"Pelajari kembali ciri-ciri fakta dan opini, lalu coba lagi."}`;
+  r.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function renderQuiz(){
+  document.getElementById("quiz").innerHTML=quiz.map((item,i)=>`
+    <div class="q" style="margin-bottom:26px">
+      <h3>${i+1}. ${item.q}</h3>
+      ${item.a.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}" onchange="updateProgress()"> ${o}</label>`).join("")}
+    </div>`).join("");
+}
+function updateProgress(){
+  let answered=0;
+  quiz.forEach((_,i)=>{if(document.querySelector(`input[name="q${i}"]:checked`)) answered++});
+  document.getElementById("progress").style.width=(answered/quiz.length*100)+"%";
+}
+function finishQuiz(){
+  let score=0, answered=0;
+  quiz.forEach((item,i)=>{
+    const c=document.querySelector(`input[name="q${i}"]:checked`);
+    if(c){answered++; if(+c.value===item.c)score++;}
+  });
+  if(answered<quiz.length){
+    alert("Silakan jawab semua soal terlebih dahulu.");
+    return;
+  }
+  const nilai=score*10;
+  let pred=nilai>=90?"Sangat Baik":nilai>=80?"Baik":nilai>=70?"Cukup":"Perlu Belajar Lagi";
+  const r=document.getElementById("quizResult");
+  r.style.display="block";
+  r.innerHTML=`<div class="score">${nilai}</div><h3>${pred}</h3><p>Jawaban benar: <b>${score}/${quiz.length}</b></p><p>${nilai>=80?"🎉 Hebat! Kamu sudah memahami materi fakta dan opini.":"💪 Jangan menyerah. Baca kembali materi dan coba kuis lagi."}</p>`;
+  r.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function resetQuiz(){
+  renderQuiz();
+  document.getElementById("quizResult").style.display="none";
+  document.getElementById("progress").style.width="0%";
+}
+renderPractice();
+renderQuiz();
+</script>
+</body>
+</html>
